@@ -292,6 +292,76 @@
             line-height: 1.7; max-width: 480px; margin-left: auto; margin-right: auto;
         }
 
+        /* ââ Shop Grid ââ */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .product-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px 28px;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(14,165,233,0.15);
+            border-color: rgba(14,165,233,0.25);
+        }
+        .product-emoji {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        .product-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+        .product-card .product-desc {
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .product-btn {
+            padding: 10px 22px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            transition: transform 0.2s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+        .product-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(14,165,233,0.3);
+        }
+
         /* ââ Footer ââ */
         footer {
             position: relative; z-index: 1;
@@ -355,9 +425,10 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#shop">Shop</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="mailto:contact@arkcora.com" class="nav-cta">Get In Touch</a>
+        <a href="#shop" class="nav-cta">Browse Products</a>
         <button class="mobile-toggle" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'" aria-label="Menu">&#9776;</button>
     </nav>
 
@@ -367,8 +438,8 @@
         <h1>The Future of <br><span class="gradient-text">Digital Content</span></h1>
         <p>We use AI and automation to build content that captures attention, drives engagement, and generates revenue â at scale.</p>
         <div class="hero-buttons">
-            <a href="#about" class="btn-primary">See What We Do</a>
-            <a href="#contact" class="btn-outline">Get In Touch</a>
+            <a href="#shop" class="btn-primary">Browse Products</a>
+            <a href="#about" class="btn-outline">See What We Do</a>
         </div>
     </section>
 
@@ -441,6 +512,80 @@
         </div>
     </section>
 
+    <!-- Shop -->
+    <section class="section" id="shop">
+        <div class="section-inner">
+            <div class="section-label reveal">Digital Products</div>
+            <h2 class="section-title reveal">Tools to level up<br>your life &amp; business.</h2>
+            <p class="section-desc reveal">Professionally designed planners, trackers, and guides â instant download, ready to use.</p>
+            <div class="shop-grid">
+                <div class="product-card reveal">
+                    <div class="product-emoji">&#128176;</div>
+                    <h3>Monthly Budget Planner</h3>
+                    <p class="product-desc">10-page finance tracker with income, expenses, debt payoff, and savings goals. Take control of your money.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$5.99</span>
+                        <a href="https://pminardo.gumroad.com/l/zvwtgk" target="_blank" class="product-btn">Get It</a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-emoji">&#128197;</div>
+                    <h3>Social Media Content Calendar</h3>
+                    <p class="product-desc">6-sheet Excel spreadsheet with weekly planner, hashtag tracker, analytics dashboard, and content ideas bank.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$9.99</span>
+                        <a href="https://pminardo.gumroad.com/l/ylinr" target="_blank" class="product-btn">Get It</a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-emoji">&#127919;</div>
+                    <h3>Goal Setting Workbook</h3>
+                    <p class="product-desc">12-page workbook with SMART goals, quarterly planning, habit tracker, and weekly reviews. Plan your best year.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$4.99</span>
+                        <a href="https://pminardo.gumroad.com/l/pkzjlz" target="_blank" class="product-btn">Get It</a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-emoji">&#128640;</div>
+                    <h3>$0 Side Hustle Starter Guide</h3>
+                    <p class="product-desc">24+ page ebook with 25 proven passive income methods, 30-day action plan, and resource directory. Start from zero.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$12.99</span>
+                        <a href="https://pminardo.gumroad.com/l/bshhsy" target="_blank" class="product-btn">Get It</a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-emoji">&#128170;</div>
+                    <h3>90-Day Fitness Tracker</h3>
+                    <p class="product-desc">13-page workout and nutrition planner with macro tracking, progress check-ins, and transformation results page.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$6.99</span>
+                        <a href="https://pminardo.gumroad.com/l/gumife" target="_blank" class="product-btn">Get It</a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-emoji">&#128141;</div>
+                    <h3>Wedding Planner Workbook</h3>
+                    <p class="product-desc">21-page planner with budget tracker, guest list, vendor contacts, timeline, seating chart, and honeymoon planning.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$14.99</span>
+                        <a href="https://pminardo.gumroad.com/l/kqyyul" target="_blank" class="product-btn">Get It</a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-emoji">&#127869;</div>
+                    <h3>Weekly Meal Prep Planner</h3>
+                    <p class="product-desc">15-page planner with grocery lists, recipe cards, meal calendar, nutrition tracker, and pantry checklist.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$5.99</span>
+                        <a href="https://pminardo.gumroad.com/l/nypexz" target="_blank" class="product-btn">Get It</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta-section" id="contact">
         <div class="cta-box reveal">
@@ -457,6 +602,7 @@
             <ul class="footer-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#shop">Shop</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="footer-copy">&copy; 2026 Arkcora. All rights reserved.</div>
@@ -502,4 +648,4 @@
         reveals.forEach(el => revealObs.observe(el));
     </script>
 </body>
-</html>
+                                                      </html>
