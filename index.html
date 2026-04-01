@@ -3,30 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arkcora â AI-Powered Content & Automation</title>
+    <meta name="description" content="Arkcora builds AI-powered systems that create, distribute, and monetize digital content. Browse our digital products, planners, trackers, and guides.">
+    <title>Arkcora &mdash; AI-Powered Content &amp; Automation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --blue: #0EA5E9;
+            --blue-light: #38BDF8;
             --purple: #8B5CF6;
+            --purple-light: #A78BFA;
+            --green: #22C55E;
             --navy: #0B0F1A;
             --navy-light: #111827;
+            --surface: rgba(255,255,255,0.03);
+            --surface-hover: rgba(255,255,255,0.06);
             --text: #E4E8F0;
-            --text-dim: rgba(228,232,240,0.55);
+            --text-dim: rgba(228,232,240,0.6);
+            --text-muted: rgba(228,232,240,0.4);
             --glass: rgba(255,255,255,0.04);
+            --glass-hover: rgba(255,255,255,0.08);
             --glass-border: rgba(255,255,255,0.08);
+            --glass-border-hover: rgba(255,255,255,0.16);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 400ms ease;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--navy);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ââ Focus States (Keyboard Accessibility) ââ */
+        *:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        *:focus:not(:focus-visible) { outline: none; }
+
+        /* ââ Reduced Motion ââ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
 
         /* ââ Animated Background ââ */
@@ -35,7 +74,8 @@
             overflow: hidden;
         }
         .orb {
-            position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.35;
+            position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.3;
+            will-change: transform;
         }
         .orb-1 {
             width: 700px; height: 700px; top: -15%; left: -10%;
@@ -49,7 +89,7 @@
         }
         .orb-3 {
             width: 400px; height: 400px; top: 40%; left: 50%;
-            background: radial-gradient(circle, rgba(14,165,233,0.5), transparent 70%);
+            background: radial-gradient(circle, rgba(14,165,233,0.4), transparent 70%);
             animation: float3 18s ease-in-out infinite;
         }
         @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(80px,60px)} }
@@ -60,8 +100,8 @@
         .grid-overlay {
             position: fixed; inset: 0; z-index: 0; pointer-events: none;
             background-image:
-                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
             background-size: 60px 60px;
         }
 
@@ -73,7 +113,7 @@
             background: rgba(11,15,26,0.7);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
-            transition: background 0.3s;
+            transition: background var(--transition-base);
         }
         nav.scrolled { background: rgba(11,15,26,0.92); }
         .logo {
@@ -86,25 +126,26 @@
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a {
             color: var(--text-dim); text-decoration: none; font-size: 14px;
-            font-weight: 500; letter-spacing: 0.3px; transition: color 0.3s;
-            position: relative;
+            font-weight: 500; letter-spacing: 0.3px; transition: color var(--transition-fast);
+            position: relative; cursor: pointer;
         }
         .nav-links a::after {
             content: ''; position: absolute; bottom: -4px; left: 0;
             width: 0; height: 2px; border-radius: 1px;
             background: linear-gradient(90deg, var(--blue), var(--purple));
-            transition: width 0.3s;
+            transition: width var(--transition-base);
         }
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+        .nav-links a:hover::after, .nav-links a:focus-visible::after { width: 100%; }
+
         .nav-cta {
-            padding: 10px 24px; border-radius: 10px; font-size: 14px;
+            padding: 10px 24px; border-radius: var(--radius-sm); font-size: 14px;
             font-weight: 600; color: #fff; border: none; cursor: pointer;
             background: linear-gradient(135deg, var(--blue), var(--purple));
-            transition: transform 0.2s, box-shadow 0.3s;
-            text-decoration: none;
+            transition: transform var(--transition-fast), box-shadow var(--transition-base);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
         }
-        .nav-cta:hover {
+        .nav-cta:hover, .nav-cta:focus-visible {
             transform: translateY(-1px);
             box-shadow: 0 8px 30px rgba(14,165,233,0.3);
         }
@@ -112,7 +153,7 @@
         /* ââ Hero ââ */
         .hero {
             position: relative; z-index: 1;
-            min-height: 100vh; display: flex; flex-direction: column;
+            min-height: 100dvh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
             padding: 120px 24px 80px;
         }
@@ -126,7 +167,7 @@
         }
         .hero-badge .dot {
             width: 8px; height: 8px; border-radius: 50%;
-            background: #22c55e; animation: pulse-dot 2s ease infinite;
+            background: var(--green); animation: pulse-dot 2s ease infinite;
         }
         @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
 
@@ -139,7 +180,7 @@
             animation: fadeUp 0.8s 0.15s ease both;
         }
         .hero h1 .gradient-text {
-            background: linear-gradient(135deg, var(--blue), var(--purple), #ec4899);
+            background: linear-gradient(135deg, var(--blue-light), var(--purple-light), #F472B6);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
@@ -155,36 +196,41 @@
             animation: fadeUp 0.8s 0.45s ease both;
         }
         .btn-primary {
-            padding: 16px 36px; border-radius: 14px; font-size: 16px;
+            padding: 16px 36px; border-radius: var(--radius-md); font-size: 16px;
             font-weight: 600; color: #fff; border: none; cursor: pointer;
             background: linear-gradient(135deg, var(--blue), var(--purple));
             position: relative; overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.3s;
-            text-decoration: none;
+            transition: transform var(--transition-fast), box-shadow var(--transition-base);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            min-height: 52px;
         }
         .btn-primary::before {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
             transform: translateX(-100%);
             transition: transform 0.5s;
         }
         .btn-primary:hover::before { transform: translateX(100%); }
-        .btn-primary:hover {
+        .btn-primary:hover, .btn-primary:focus-visible {
             transform: translateY(-2px);
             box-shadow: 0 12px 40px rgba(14,165,233,0.35);
         }
+        .btn-primary:active { transform: translateY(0); }
+
         .btn-outline {
-            padding: 16px 36px; border-radius: 14px; font-size: 16px;
+            padding: 16px 36px; border-radius: var(--radius-md); font-size: 16px;
             font-weight: 600; color: var(--text); cursor: pointer;
             background: transparent;
             border: 1px solid var(--glass-border);
-            transition: all 0.3s;
-            text-decoration: none;
+            transition: all var(--transition-base);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            min-height: 52px;
         }
-        .btn-outline:hover {
+        .btn-outline:hover, .btn-outline:focus-visible {
             border-color: var(--blue);
             background: rgba(14,165,233,0.06);
         }
+        .btn-outline:active { transform: scale(0.98); }
 
         /* ââ Stats Strip ââ */
         .stats {
@@ -203,7 +249,7 @@
         }
         .stat-label { font-size: 14px; color: var(--text-dim); margin-top: 4px; font-weight: 500; }
 
-        /* ââ What We Do ââ */
+        /* ââ Sections ââ */
         .section {
             position: relative; z-index: 1;
             padding: 100px 24px;
@@ -212,6 +258,12 @@
         .section-label {
             font-size: 13px; font-weight: 600; letter-spacing: 3px;
             text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-label::before {
+            content: ''; width: 24px; height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            border-radius: 1px;
         }
         .section-title {
             font-family: 'Space Grotesk', sans-serif;
@@ -224,27 +276,30 @@
             line-height: 1.7; margin-bottom: 56px;
         }
 
+        /* ââ Feature Cards ââ */
         .features-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
         .feature-card {
             background: var(--glass); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 36px 30px;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            border-radius: var(--radius-lg); padding: 36px 30px;
+            transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-slow);
+            cursor: default;
         }
         .feature-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(14,165,233,0.25);
+            border-color: rgba(14,165,233,0.2);
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         .feature-icon {
-            width: 52px; height: 52px; border-radius: 14px;
+            width: 52px; height: 52px; border-radius: var(--radius-md);
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px; margin-bottom: 20px;
-            background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(139,92,246,0.15));
-            border: 1px solid rgba(14,165,233,0.15);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(14,165,233,0.12), rgba(139,92,246,0.12));
+            border: 1px solid rgba(14,165,233,0.1);
         }
+        .feature-icon svg { width: 24px; height: 24px; stroke: var(--blue-light); stroke-width: 1.8; fill: none; }
         .feature-card h3 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 20px; font-weight: 600; margin-bottom: 10px;
@@ -254,69 +309,60 @@
         /* ââ Marquee ââ */
         .marquee-section {
             position: relative; z-index: 1;
-            padding: 60px 0; overflow: hidden;
+            padding: 48px 0; overflow: hidden;
             border-top: 1px solid var(--glass-border);
             border-bottom: 1px solid var(--glass-border);
         }
         .marquee-track {
-            display: flex; gap: 60px; width: max-content;
-            animation: marquee 30s linear infinite;
+            display: flex; gap: 48px; width: max-content;
+            animation: marquee 35s linear infinite;
         }
         .marquee-item {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 18px; font-weight: 600; white-space: nowrap;
-            color: rgba(255,255,255,0.12);
+            font-size: 16px; font-weight: 600; white-space: nowrap;
+            color: rgba(255,255,255,0.1);
             display: flex; align-items: center; gap: 12px;
         }
-        .marquee-item .sep { color: var(--blue); font-size: 10px; }
+        .marquee-item .sep { color: var(--blue); font-size: 8px; opacity: 0.5; }
         @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-        /* ââ CTA Section ââ */
-        .cta-section {
-            position: relative; z-index: 1;
-            padding: 120px 24px; text-align: center;
-        }
-        .cta-box {
-            max-width: 700px; margin: 0 auto;
-            background: linear-gradient(135deg, rgba(14,165,233,0.08), rgba(139,92,246,0.08));
-            border: 1px solid rgba(14,165,233,0.15);
-            border-radius: 28px; padding: 64px 40px;
-        }
-        .cta-box h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(26px, 3.5vw, 38px);
-            font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px;
-        }
-        .cta-box p {
-            font-size: 17px; color: var(--text-dim); margin-bottom: 36px;
-            line-height: 1.7; max-width: 480px; margin-left: auto; margin-right: auto;
-        }
 
         /* ââ Shop Grid ââ */
         .shop-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
             margin-top: 48px;
         }
         .product-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 32px 28px;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            border-radius: var(--radius-lg);
+            padding: 28px 26px;
+            transition: transform var(--transition-base), box-shadow var(--transition-slow), border-color var(--transition-base);
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
+        .product-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            opacity: 0; transition: opacity var(--transition-base);
+        }
+        .product-card:hover::before { opacity: 1; }
         .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 48px rgba(14,165,233,0.15);
-            border-color: rgba(14,165,233,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(14,165,233,0.12);
+            border-color: var(--glass-border-hover);
         }
-        .product-emoji {
-            font-size: 36px;
+        .product-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
             margin-bottom: 16px;
+            background: linear-gradient(135deg, rgba(14,165,233,0.1), rgba(139,92,246,0.1));
+            border: 1px solid rgba(14,165,233,0.08);
         }
+        .product-icon svg { width: 22px; height: 22px; stroke: var(--blue-light); stroke-width: 1.8; fill: none; }
         .product-card h3 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 18px;
@@ -327,7 +373,7 @@
         .product-card .product-desc {
             font-size: 14px;
             color: var(--text-dim);
-            line-height: 1.6;
+            line-height: 1.65;
             margin-bottom: 20px;
             flex: 1;
         }
@@ -335,6 +381,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--glass-border);
         }
         .product-price {
             font-family: 'Space Grotesk', sans-serif;
@@ -347,19 +395,53 @@
         }
         .product-btn {
             padding: 10px 22px;
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             font-size: 14px;
             font-weight: 600;
             color: #fff;
             border: none;
             cursor: pointer;
             background: linear-gradient(135deg, var(--blue), var(--purple));
-            transition: transform 0.2s, box-shadow 0.3s;
+            transition: transform var(--transition-fast), box-shadow var(--transition-base);
             text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+            min-height: 44px; min-width: 44px;
         }
-        .product-btn:hover {
+        .product-btn:hover, .product-btn:focus-visible {
             transform: translateY(-1px);
             box-shadow: 0 8px 24px rgba(14,165,233,0.3);
+        }
+        .product-btn:active { transform: translateY(0); }
+        .product-btn svg { width: 14px; height: 14px; stroke: #fff; stroke-width: 2; fill: none; }
+
+        /* ââ CTA Section ââ */
+        .cta-section {
+            position: relative; z-index: 1;
+            padding: 120px 24px; text-align: center;
+        }
+        .cta-box {
+            max-width: 700px; margin: 0 auto;
+            background: linear-gradient(135deg, rgba(14,165,233,0.06), rgba(139,92,246,0.06));
+            border: 1px solid rgba(14,165,233,0.12);
+            border-radius: var(--radius-xl); padding: 64px 40px;
+            position: relative; overflow: hidden;
+        }
+        .cta-box::before {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(14,165,233,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .cta-box h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px;
+            position: relative;
+        }
+        .cta-box p {
+            font-size: 17px; color: var(--text-dim); margin-bottom: 36px;
+            line-height: 1.7; max-width: 480px; margin-left: auto; margin-right: auto;
+            position: relative;
         }
 
         /* ââ Footer ââ */
@@ -380,47 +462,86 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .footer-copy { font-size: 13px; color: var(--text-dim); }
+        .footer-copy { font-size: 13px; color: var(--text-muted); }
         .footer-links { display: flex; gap: 24px; list-style: none; }
         .footer-links a {
             color: var(--text-dim); text-decoration: none; font-size: 13px;
-            transition: color 0.3s;
+            transition: color var(--transition-fast); cursor: pointer;
         }
-        .footer-links a:hover { color: var(--text); }
+        .footer-links a:hover, .footer-links a:focus-visible { color: var(--text); }
 
         /* ââ Animations ââ */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal {
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        /* ââ Mobile ââ */
-        .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 24px; cursor: pointer; }
+        /* ââ Mobile Menu Overlay ââ */
+        .mobile-toggle {
+            display: none; background: none; border: none; color: var(--text);
+            cursor: pointer; padding: 8px; min-width: 44px; min-height: 44px;
+            align-items: center; justify-content: center;
+        }
+        .mobile-toggle svg { width: 24px; height: 24px; stroke: var(--text); stroke-width: 2; fill: none; }
+
+        .mobile-menu {
+            display: none; position: fixed; top: 72px; left: 0; right: 0;
+            background: rgba(11,15,26,0.95); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 24px; z-index: 99;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block; padding: 16px 0; color: var(--text-dim);
+            text-decoration: none; font-size: 16px; font-weight: 500;
+            border-bottom: 1px solid var(--glass-border);
+            transition: color var(--transition-fast); cursor: pointer;
+        }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--text); }
+
+        /* ââ Responsive ââ */
+        @media (max-width: 1024px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
             nav { padding: 0 20px; }
             .nav-links { display: none; }
             .nav-cta { display: none; }
-            .mobile-toggle { display: block; }
+            .mobile-toggle { display: flex; }
+            .features-grid { grid-template-columns: 1fr; }
+            .shop-grid { grid-template-columns: 1fr; }
             .stats { gap: 32px; }
             .stat-num { font-size: 36px; }
             .cta-box { padding: 48px 24px; }
             .footer-inner { flex-direction: column; text-align: center; }
+            .hero { min-height: auto; padding: 120px 20px 60px; }
+            .section { padding: 80px 20px; }
+        }
+        @media (max-width: 375px) {
+            .hero h1 { font-size: 36px; letter-spacing: -1px; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .hero-buttons a { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
     <!-- Background Effects -->
-    <div class="bg-effects">
+    <div class="bg-effects" aria-hidden="true">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
-    <div class="grid-overlay"></div>
+    <div class="grid-overlay" aria-hidden="true"></div>
 
     <!-- Navbar -->
-    <nav id="navbar">
+    <nav id="navbar" role="navigation" aria-label="Main navigation">
         <div class="logo">Arkcora</div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
@@ -429,42 +550,58 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <a href="#shop" class="nav-cta">Browse Products</a>
-        <button class="mobile-toggle" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'" aria-label="Menu">&#9776;</button>
+        <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" id="menuToggle">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#shop">Shop</a>
+        <a href="#contact">Contact</a>
+    </div>
 
     <!-- Hero -->
     <section class="hero" id="home">
-        <div class="hero-badge"><span class="dot"></span> Now Live</div>
+        <div class="hero-badge"><span class="dot" aria-hidden="true"></span> Now Live</div>
         <h1>The Future of <br><span class="gradient-text">Digital Content</span></h1>
-        <p>We use AI and automation to build content that captures attention, drives engagement, and generates revenue â at scale.</p>
+        <p>We use AI and automation to build content that captures attention, drives engagement, and generates revenue &mdash; at scale.</p>
         <div class="hero-buttons">
-            <a href="#shop" class="btn-primary">Browse Products</a>
-            <a href="#about" class="btn-outline">See What We Do</a>
+            <a href="#shop" class="btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                Browse Products
+            </a>
+            <a href="#about" class="btn-outline">
+                See What We Do
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
         </div>
     </section>
 
     <!-- Stats -->
-    <div class="stats">
+    <div class="stats" aria-label="Key statistics">
         <div class="stat-item">
-            <div class="stat-num" data-target="120">0</div>
+            <div class="stat-num" data-target="120" aria-label="120+ videos created">0</div>
             <div class="stat-label">Videos Created</div>
         </div>
         <div class="stat-item">
-            <div class="stat-num" data-target="6">0</div>
+            <div class="stat-num" data-target="6" aria-label="6 content series">0</div>
             <div class="stat-label">Content Series</div>
         </div>
         <div class="stat-item">
-            <div class="stat-num" data-target="5">0</div>
+            <div class="stat-num" data-target="5" aria-label="5 carousel posts">0</div>
             <div class="stat-label">Carousel Posts</div>
         </div>
         <div class="stat-item">
-            <div class="stat-num" data-target="8">0</div>
+            <div class="stat-num" data-target="8" aria-label="8 categories">0</div>
             <div class="stat-label">Categories</div>
         </div>
     </div>
 
     <!-- Marquee -->
-    <div class="marquee-section">
+    <div class="marquee-section" aria-hidden="true">
         <div class="marquee-track">
             <span class="marquee-item">AI Content <span class="sep">&#9670;</span></span>
             <span class="marquee-item">Viral Videos <span class="sep">&#9670;</span></span>
@@ -474,7 +611,6 @@
             <span class="marquee-item">Social Growth <span class="sep">&#9670;</span></span>
             <span class="marquee-item">Brand Building <span class="sep">&#9670;</span></span>
             <span class="marquee-item">Content Strategy <span class="sep">&#9670;</span></span>
-            <!-- Duplicate for seamless loop -->
             <span class="marquee-item">AI Content <span class="sep">&#9670;</span></span>
             <span class="marquee-item">Viral Videos <span class="sep">&#9670;</span></span>
             <span class="marquee-item">Automation <span class="sep">&#9670;</span></span>
@@ -491,22 +627,28 @@
         <div class="section-inner">
             <div class="section-label reveal">What We Do</div>
             <h2 class="section-title reveal">Content meets automation.<br>Scale meets quality.</h2>
-            <p class="section-desc reveal">Arkcora builds AI-powered systems that create, distribute, and monetize digital content â so you don't have to do it manually.</p>
+            <p class="section-desc reveal">Arkcora builds AI-powered systems that create, distribute, and monetize digital content &mdash; so you don't have to do it manually.</p>
             <div class="features-grid">
                 <div class="feature-card reveal">
-                    <div class="feature-icon">&#9889;</div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
                     <h3>AI Content Creation</h3>
-                    <p>Short-form videos, carousels, and posts generated using AI â trending topics, engaging hooks, professional quality.</p>
+                    <p>Short-form videos, carousels, and posts generated using AI &mdash; trending topics, engaging hooks, professional quality.</p>
                 </div>
                 <div class="feature-card reveal">
-                    <div class="feature-icon">&#9881;</div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                    </div>
                     <h3>Workflow Automation</h3>
                     <p>Automated pipelines that handle scheduling, distribution, and analytics across every major platform.</p>
                 </div>
                 <div class="feature-card reveal">
-                    <div class="feature-icon">&#128200;</div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    </div>
                     <h3>Revenue Systems</h3>
-                    <p>Monetization strategies built in from day one â affiliate links, sponsorships, digital products, and ad revenue.</p>
+                    <p>Monetization strategies built in from day one &mdash; affiliate links, sponsorships, digital products, and ad revenue.</p>
                 </div>
             </div>
         </div>
@@ -517,69 +659,83 @@
         <div class="section-inner">
             <div class="section-label reveal">Digital Products</div>
             <h2 class="section-title reveal">Tools to level up<br>your life &amp; business.</h2>
-            <p class="section-desc reveal">Professionally designed planners, trackers, and guides â instant download, ready to use.</p>
+            <p class="section-desc reveal">Professionally designed planners, trackers, and guides &mdash; instant download, ready to use.</p>
             <div class="shop-grid">
                 <div class="product-card reveal">
-                    <div class="product-emoji">&#128176;</div>
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    </div>
                     <h3>Monthly Budget Planner</h3>
                     <p class="product-desc">10-page finance tracker with income, expenses, debt payoff, and savings goals. Take control of your money.</p>
                     <div class="product-footer">
                         <span class="product-price">$5.99</span>
-                        <a href="https://pminardo.gumroad.com/l/zvwtgk" target="_blank" class="product-btn">Get It</a>
+                        <a href="https://pminardo.gumroad.com/l/zvwtgk" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Monthly Budget Planner">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                     </div>
                 </div>
                 <div class="product-card reveal">
-                    <div class="product-emoji">&#128197;</div>
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
                     <h3>Social Media Content Calendar</h3>
                     <p class="product-desc">6-sheet Excel spreadsheet with weekly planner, hashtag tracker, analytics dashboard, and content ideas bank.</p>
                     <div class="product-footer">
                         <span class="product-price">$9.99</span>
-                        <a href="https://pminardo.gumroad.com/l/ylinr" target="_blank" class="product-btn">Get It</a>
+                        <a href="https://pminardo.gumroad.com/l/ylinr" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Social Media Content Calendar">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                     </div>
                 </div>
                 <div class="product-card reveal">
-                    <div class="product-emoji">&#127919;</div>
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    </div>
                     <h3>Goal Setting Workbook</h3>
                     <p class="product-desc">12-page workbook with SMART goals, quarterly planning, habit tracker, and weekly reviews. Plan your best year.</p>
                     <div class="product-footer">
                         <span class="product-price">$4.99</span>
-                        <a href="https://pminardo.gumroad.com/l/pkzjlz" target="_blank" class="product-btn">Get It</a>
+                        <a href="https://pminardo.gumroad.com/l/pkzjlz" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Goal Setting Workbook">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                     </div>
                 </div>
                 <div class="product-card reveal">
-                    <div class="product-emoji">&#128640;</div>
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
                     <h3>$0 Side Hustle Starter Guide</h3>
                     <p class="product-desc">24+ page ebook with 25 proven passive income methods, 30-day action plan, and resource directory. Start from zero.</p>
                     <div class="product-footer">
                         <span class="product-price">$12.99</span>
-                        <a href="https://pminardo.gumroad.com/l/bshhsy" target="_blank" class="product-btn">Get It</a>
+                        <a href="https://pminardo.gumroad.com/l/bshhsy" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Side Hustle Starter Guide">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                     </div>
                 </div>
                 <div class="product-card reveal">
-                    <div class="product-emoji">&#128170;</div>
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+                    </div>
                     <h3>90-Day Fitness Tracker</h3>
                     <p class="product-desc">13-page workout and nutrition planner with macro tracking, progress check-ins, and transformation results page.</p>
                     <div class="product-footer">
                         <span class="product-price">$6.99</span>
-                        <a href="https://pminardo.gumroad.com/l/gumife" target="_blank" class="product-btn">Get It</a>
+                        <a href="https://pminardo.gumroad.com/l/gumife" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get 90-Day Fitness Tracker">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                     </div>
                 </div>
                 <div class="product-card reveal">
-                    <div class="product-emoji">&#128141;</div>
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    </div>
                     <h3>Wedding Planner Workbook</h3>
                     <p class="product-desc">21-page planner with budget tracker, guest list, vendor contacts, timeline, seating chart, and honeymoon planning.</p>
                     <div class="product-footer">
                         <span class="product-price">$14.99</span>
-                        <a href="https://pminardo.gumroad.com/l/kqyyul" target="_blank" class="product-btn">Get It</a>
+                        <a href="https://pminardo.gumroad.com/l/kqyyul" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Wedding Planner Workbook">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                     </div>
                 </div>
                 <div class="product-card reveal">
-                    <div class="product-emoji">&#127869;</div>
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                    </div>
                     <h3>Weekly Meal Prep Planner</h3>
                     <p class="product-desc">15-page planner with grocery lists, recipe cards, meal calendar, nutrition tracker, and pantry checklist.</p>
                     <div class="product-footer">
                         <span class="product-price">$5.99</span>
-                        <a href="https://pminardo.gumroad.com/l/nypexz" target="_blank" class="product-btn">Get It</a>
+                        <a href="https://pminardo.gumroad.com/l/nypexz" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Weekly Meal Prep Planner">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                     </div>
                 </div>
             </div>
@@ -591,12 +747,15 @@
         <div class="cta-box reveal">
             <h2>Ready to build something?</h2>
             <p>We're just getting started. Follow along as we scale content, automate workflows, and build revenue streams from scratch.</p>
-            <a href="mailto:contact@arkcora.com" class="btn-primary">Contact Us</a>
+            <a href="mailto:contact@arkcora.com" class="btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Contact Us
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="footer-inner">
             <div class="footer-logo">Arkcora</div>
             <ul class="footer-links">
@@ -614,6 +773,812 @@
         const nav = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+        });
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arkcora builds AI-powered systems that create, distribute, and monetize digital content. Browse our digital products, planners, trackers, and guides.">
+    <title>Arkcora &mdash; AI-Powered Content &amp; Automation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue: #0EA5E9;
+            --blue-light: #38BDF8;
+            --purple: #8B5CF6;
+            --purple-light: #A78BFA;
+            --green: #22C55E;
+            --navy: #0B0F1A;
+            --navy-light: #111827;
+            --surface: rgba(255,255,255,0.03);
+            --surface-hover: rgba(255,255,255,0.06);
+            --text: #E4E8F0;
+            --text-dim: rgba(228,232,240,0.6);
+            --text-muted: rgba(228,232,240,0.4);
+            --glass: rgba(255,255,255,0.04);
+            --glass-hover: rgba(255,255,255,0.08);
+            --glass-border: rgba(255,255,255,0.08);
+            --glass-border-hover: rgba(255,255,255,0.16);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 400ms ease;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--navy);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ââ Focus States (Keyboard Accessibility) ââ */
+        *:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        *:focus:not(:focus-visible) { outline: none; }
+
+        /* ââ Reduced Motion ââ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ââ Animated Background ââ */
+        .bg-effects {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            overflow: hidden;
+        }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.3;
+            will-change: transform;
+        }
+        .orb-1 {
+            width: 700px; height: 700px; top: -15%; left: -10%;
+            background: radial-gradient(circle, var(--blue), transparent 70%);
+            animation: float1 20s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 600px; height: 600px; bottom: -10%; right: -8%;
+            background: radial-gradient(circle, var(--purple), transparent 70%);
+            animation: float2 25s ease-in-out infinite;
+        }
+        .orb-3 {
+            width: 400px; height: 400px; top: 40%; left: 50%;
+            background: radial-gradient(circle, rgba(14,165,233,0.4), transparent 70%);
+            animation: float3 18s ease-in-out infinite;
+        }
+        @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(80px,60px)} }
+        @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-70px,-50px)} }
+        @keyframes float3 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-60px,40px)} 66%{transform:translate(50px,-30px)} }
+
+        /* ââ Grid Overlay ââ */
+        .grid-overlay {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* ââ Navbar ââ */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 0 40px; height: 72px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(11,15,26,0.7);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: background var(--transition-base);
+        }
+        nav.scrolled { background: rgba(11,15,26,0.92); }
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px; font-weight: 700; letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none; font-size: 14px;
+            font-weight: 500; letter-spacing: 0.3px; transition: color var(--transition-fast);
+            position: relative; cursor: pointer;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; border-radius: 1px;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            transition: width var(--transition-base);
+        }
+        .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+        .nav-links a:hover::after, .nav-links a:focus-visible::after { width: 100%; }
+
+        .nav-cta {
+            padding: 10px 24px; border-radius: var(--radius-sm); font-size: 14px;
+            font-weight: 600; color: #fff; border: none; cursor: pointer;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            transition: transform var(--transition-fast), box-shadow var(--transition-base);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .nav-cta:hover, .nav-cta:focus-visible {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(14,165,233,0.3);
+        }
+
+        /* ââ Hero ââ */
+        .hero {
+            position: relative; z-index: 1;
+            min-height: 100dvh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 120px 24px 80px;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 20px; border-radius: 100px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            font-size: 13px; font-weight: 500; color: var(--text-dim);
+            margin-bottom: 32px;
+            animation: fadeUp 0.8s ease both;
+        }
+        .hero-badge .dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--green); animation: pulse-dot 2s ease infinite;
+        }
+        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(42px, 7vw, 80px);
+            font-weight: 700; line-height: 1.08;
+            letter-spacing: -2px; max-width: 900px;
+            margin-bottom: 24px;
+            animation: fadeUp 0.8s 0.15s ease both;
+        }
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--blue-light), var(--purple-light), #F472B6);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-dim); max-width: 580px; line-height: 1.7;
+            margin-bottom: 48px;
+            animation: fadeUp 0.8s 0.3s ease both;
+        }
+
+        .hero-buttons {
+            display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+            animation: fadeUp 0.8s 0.45s ease both;
+        }
+        .btn-primary {
+            padding: 16px 36px; border-radius: var(--radius-md); font-size: 16px;
+            font-weight: 600; color: #fff; border: none; cursor: pointer;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            position: relative; overflow: hidden;
+            transition: transform var(--transition-fast), box-shadow var(--transition-base);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            min-height: 52px;
+        }
+        .btn-primary::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+        .btn-primary:hover::before { transform: translateX(100%); }
+        .btn-primary:hover, .btn-primary:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(14,165,233,0.35);
+        }
+        .btn-primary:active { transform: translateY(0); }
+
+        .btn-outline {
+            padding: 16px 36px; border-radius: var(--radius-md); font-size: 16px;
+            font-weight: 600; color: var(--text); cursor: pointer;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            transition: all var(--transition-base);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            min-height: 52px;
+        }
+        .btn-outline:hover, .btn-outline:focus-visible {
+            border-color: var(--blue);
+            background: rgba(14,165,233,0.06);
+        }
+        .btn-outline:active { transform: scale(0.98); }
+
+        /* ââ Stats Strip ââ */
+        .stats {
+            position: relative; z-index: 1;
+            display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+            padding: 0 24px 80px;
+            animation: fadeUp 0.8s 0.6s ease both;
+        }
+        .stat-item { text-align: center; }
+        .stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px; font-weight: 700;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label { font-size: 14px; color: var(--text-dim); margin-top: 4px; font-weight: 500; }
+
+        /* ââ Sections ââ */
+        .section {
+            position: relative; z-index: 1;
+            padding: 100px 24px;
+        }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
+        .section-label {
+            font-size: 13px; font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-label::before {
+            content: ''; width: 24px; height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            border-radius: 1px;
+        }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 700; letter-spacing: -1px;
+            margin-bottom: 20px; line-height: 1.15;
+        }
+        .section-desc {
+            font-size: 17px; color: var(--text-dim); max-width: 600px;
+            line-height: 1.7; margin-bottom: 56px;
+        }
+
+        /* ââ Feature Cards ââ */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .feature-card {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg); padding: 36px 30px;
+            transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-slow);
+            cursor: default;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(14,165,233,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .feature-icon {
+            width: 52px; height: 52px; border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(14,165,233,0.12), rgba(139,92,246,0.12));
+            border: 1px solid rgba(14,165,233,0.1);
+        }
+        .feature-icon svg { width: 24px; height: 24px; stroke: var(--blue-light); stroke-width: 1.8; fill: none; }
+        .feature-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px; font-weight: 600; margin-bottom: 10px;
+        }
+        .feature-card p { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+
+        /* ââ Marquee ââ */
+        .marquee-section {
+            position: relative; z-index: 1;
+            padding: 48px 0; overflow: hidden;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .marquee-track {
+            display: flex; gap: 48px; width: max-content;
+            animation: marquee 35s linear infinite;
+        }
+        .marquee-item {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px; font-weight: 600; white-space: nowrap;
+            color: rgba(255,255,255,0.1);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .marquee-item .sep { color: var(--blue); font-size: 8px; opacity: 0.5; }
+        @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+        /* ââ Shop Grid ââ */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 48px;
+        }
+        .product-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 28px 26px;
+            transition: transform var(--transition-base), box-shadow var(--transition-slow), border-color var(--transition-base);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            opacity: 0; transition: opacity var(--transition-base);
+        }
+        .product-card:hover::before { opacity: 1; }
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(14,165,233,0.12);
+            border-color: var(--glass-border-hover);
+        }
+        .product-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, rgba(14,165,233,0.1), rgba(139,92,246,0.1));
+            border: 1px solid rgba(14,165,233,0.08);
+        }
+        .product-icon svg { width: 22px; height: 22px; stroke: var(--blue-light); stroke-width: 1.8; fill: none; }
+        .product-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+        .product-card .product-desc {
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.65;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--glass-border);
+        }
+        .product-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .product-btn {
+            padding: 10px 22px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            transition: transform var(--transition-fast), box-shadow var(--transition-base);
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+            min-height: 44px; min-width: 44px;
+        }
+        .product-btn:hover, .product-btn:focus-visible {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(14,165,233,0.3);
+        }
+        .product-btn:active { transform: translateY(0); }
+        .product-btn svg { width: 14px; height: 14px; stroke: #fff; stroke-width: 2; fill: none; }
+
+        /* ââ CTA Section ââ */
+        .cta-section {
+            position: relative; z-index: 1;
+            padding: 120px 24px; text-align: center;
+        }
+        .cta-box {
+            max-width: 700px; margin: 0 auto;
+            background: linear-gradient(135deg, rgba(14,165,233,0.06), rgba(139,92,246,0.06));
+            border: 1px solid rgba(14,165,233,0.12);
+            border-radius: var(--radius-xl); padding: 64px 40px;
+            position: relative; overflow: hidden;
+        }
+        .cta-box::before {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(14,165,233,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .cta-box h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px;
+            position: relative;
+        }
+        .cta-box p {
+            font-size: 17px; color: var(--text-dim); margin-bottom: 36px;
+            line-height: 1.7; max-width: 480px; margin-left: auto; margin-right: auto;
+            position: relative;
+        }
+
+        /* ââ Footer ââ */
+        footer {
+            position: relative; z-index: 1;
+            border-top: 1px solid var(--glass-border);
+            padding: 40px 24px; text-align: center;
+        }
+        .footer-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+        }
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px; font-weight: 700;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .footer-copy { font-size: 13px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; list-style: none; }
+        .footer-links a {
+            color: var(--text-dim); text-decoration: none; font-size: 13px;
+            transition: color var(--transition-fast); cursor: pointer;
+        }
+        .footer-links a:hover, .footer-links a:focus-visible { color: var(--text); }
+
+        /* ââ Animations ââ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ââ Mobile Menu Overlay ââ */
+        .mobile-toggle {
+            display: none; background: none; border: none; color: var(--text);
+            cursor: pointer; padding: 8px; min-width: 44px; min-height: 44px;
+            align-items: center; justify-content: center;
+        }
+        .mobile-toggle svg { width: 24px; height: 24px; stroke: var(--text); stroke-width: 2; fill: none; }
+
+        .mobile-menu {
+            display: none; position: fixed; top: 72px; left: 0; right: 0;
+            background: rgba(11,15,26,0.95); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 24px; z-index: 99;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block; padding: 16px 0; color: var(--text-dim);
+            text-decoration: none; font-size: 16px; font-weight: 500;
+            border-bottom: 1px solid var(--glass-border);
+            transition: color var(--transition-fast); cursor: pointer;
+        }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { color: var(--text); }
+
+        /* ââ Responsive ââ */
+        @media (max-width: 1024px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+            .nav-cta { display: none; }
+            .mobile-toggle { display: flex; }
+            .features-grid { grid-template-columns: 1fr; }
+            .shop-grid { grid-template-columns: 1fr; }
+            .stats { gap: 32px; }
+            .stat-num { font-size: 36px; }
+            .cta-box { padding: 48px 24px; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .hero { min-height: auto; padding: 120px 20px 60px; }
+            .section { padding: 80px 20px; }
+        }
+        @media (max-width: 375px) {
+            .hero h1 { font-size: 36px; letter-spacing: -1px; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .hero-buttons a { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-effects" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    <div class="grid-overlay" aria-hidden="true"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="logo">Arkcora</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#shop" class="nav-cta">Browse Products</a>
+        <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" id="menuToggle">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#shop">Shop</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-badge"><span class="dot" aria-hidden="true"></span> Now Live</div>
+        <h1>The Future of <br><span class="gradient-text">Digital Content</span></h1>
+        <p>We use AI and automation to build content that captures attention, drives engagement, and generates revenue &mdash; at scale.</p>
+        <div class="hero-buttons">
+            <a href="#shop" class="btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                Browse Products
+            </a>
+            <a href="#about" class="btn-outline">
+                See What We Do
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats" aria-label="Key statistics">
+        <div class="stat-item">
+            <div class="stat-num" data-target="120" aria-label="120+ videos created">0</div>
+            <div class="stat-label">Videos Created</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num" data-target="6" aria-label="6 content series">0</div>
+            <div class="stat-label">Content Series</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num" data-target="5" aria-label="5 carousel posts">0</div>
+            <div class="stat-label">Carousel Posts</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num" data-target="8" aria-label="8 categories">0</div>
+            <div class="stat-label">Categories</div>
+        </div>
+    </div>
+
+    <!-- Marquee -->
+    <div class="marquee-section" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-item">AI Content <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Viral Videos <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Automation <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Digital Products <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Passive Income <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Social Growth <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Brand Building <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Content Strategy <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">AI Content <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Viral Videos <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Automation <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Digital Products <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Passive Income <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Social Growth <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Brand Building <span class="sep">&#9670;</span></span>
+            <span class="marquee-item">Content Strategy <span class="sep">&#9670;</span></span>
+        </div>
+    </div>
+
+    <!-- What We Do -->
+    <section class="section" id="about">
+        <div class="section-inner">
+            <div class="section-label reveal">What We Do</div>
+            <h2 class="section-title reveal">Content meets automation.<br>Scale meets quality.</h2>
+            <p class="section-desc reveal">Arkcora builds AI-powered systems that create, distribute, and monetize digital content &mdash; so you don't have to do it manually.</p>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3>AI Content Creation</h3>
+                    <p>Short-form videos, carousels, and posts generated using AI &mdash; trending topics, engaging hooks, professional quality.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                    </div>
+                    <h3>Workflow Automation</h3>
+                    <p>Automated pipelines that handle scheduling, distribution, and analytics across every major platform.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    </div>
+                    <h3>Revenue Systems</h3>
+                    <p>Monetization strategies built in from day one &mdash; affiliate links, sponsorships, digital products, and ad revenue.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop -->
+    <section class="section" id="shop">
+        <div class="section-inner">
+            <div class="section-label reveal">Digital Products</div>
+            <h2 class="section-title reveal">Tools to level up<br>your life &amp; business.</h2>
+            <p class="section-desc reveal">Professionally designed planners, trackers, and guides &mdash; instant download, ready to use.</p>
+            <div class="shop-grid">
+                <div class="product-card reveal">
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    </div>
+                    <h3>Monthly Budget Planner</h3>
+                    <p class="product-desc">10-page finance tracker with income, expenses, debt payoff, and savings goals. Take control of your money.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$5.99</span>
+                        <a href="https://pminardo.gumroad.com/l/zvwtgk" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Monthly Budget Planner">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
+                    <h3>Social Media Content Calendar</h3>
+                    <p class="product-desc">6-sheet Excel spreadsheet with weekly planner, hashtag tracker, analytics dashboard, and content ideas bank.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$9.99</span>
+                        <a href="https://pminardo.gumroad.com/l/ylinr" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Social Media Content Calendar">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    </div>
+                    <h3>Goal Setting Workbook</h3>
+                    <p class="product-desc">12-page workbook with SMART goals, quarterly planning, habit tracker, and weekly reviews. Plan your best year.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$4.99</span>
+                        <a href="https://pminardo.gumroad.com/l/pkzjlz" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Goal Setting Workbook">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h3>$0 Side Hustle Starter Guide</h3>
+                    <p class="product-desc">24+ page ebook with 25 proven passive income methods, 30-day action plan, and resource directory. Start from zero.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$12.99</span>
+                        <a href="https://pminardo.gumroad.com/l/bshhsy" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Side Hustle Starter Guide">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+                    </div>
+                    <h3>90-Day Fitness Tracker</h3>
+                    <p class="product-desc">13-page workout and nutrition planner with macro tracking, progress check-ins, and transformation results page.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$6.99</span>
+                        <a href="https://pminardo.gumroad.com/l/gumife" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get 90-Day Fitness Tracker">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    </div>
+                    <h3>Wedding Planner Workbook</h3>
+                    <p class="product-desc">21-page planner with budget tracker, guest list, vendor contacts, timeline, seating chart, and honeymoon planning.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$14.99</span>
+                        <a href="https://pminardo.gumroad.com/l/kqyyul" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Wedding Planner Workbook">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                    </div>
+                    <h3>Weekly Meal Prep Planner</h3>
+                    <p class="product-desc">15-page planner with grocery lists, recipe cards, meal calendar, nutrition tracker, and pantry checklist.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$5.99</span>
+                        <a href="https://pminardo.gumroad.com/l/nypexz" target="_blank" rel="noopener noreferrer" class="product-btn" aria-label="Get Weekly Meal Prep Planner">Get It <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contact">
+        <div class="cta-box reveal">
+            <h2>Ready to build something?</h2>
+            <p>We're just getting started. Follow along as we scale content, automate workflows, and build revenue streams from scratch.</p>
+            <a href="mailto:contact@arkcora.com" class="btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Contact Us
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="footer-inner">
+            <div class="footer-logo">Arkcora</div>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="footer-copy">&copy; 2026 Arkcora. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+        });
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
         });
 
         // Stat counter animation
@@ -635,17 +1600,20 @@
             });
             counted = true;
         }
-        const statsObs = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) animateCounters();
-        }, { threshold: 0.3 });
-        document.querySelectorAll('.stats')[0] && statsObs.observe(document.querySelector('.stats'));
+        const statsEl = document.querySelector('.stats');
+        if (statsEl) {
+            const statsObs = new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting) animateCounters();
+            }, { threshold: 0.3 });
+            statsObs.observe(statsEl);
+        }
 
         // Reveal on scroll
         const reveals = document.querySelectorAll('.reveal');
         const revealObs = new IntersectionObserver(entries => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
         reveals.forEach(el => revealObs.observe(el));
     </script>
 </body>
-                                                      </html>
+</html>
